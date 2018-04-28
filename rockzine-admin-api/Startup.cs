@@ -8,10 +8,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-//using rockzine_admin_api.DAL;
+using rockzine_admin_api.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-
 
 namespace rockzine_admin_api
 {
@@ -27,9 +26,9 @@ namespace rockzine_admin_api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddEntityFrameworkNpgsql().AddDbContext<RockzinedbContext>(options => options.UseNpgsql(@"Host=XXXXX;Database=XXXXX;Username=XXXXX;Password=XXXXXXX;"));
-
             services.AddMvc();
+            services.AddCors();
+            services.AddDbContext<RockzineDbContext>(options => options.UseNpgsql(@"Host=XXX;Database=XXX;Username=XXX;Password=XXX;")); //TODO FAVIO replace with kerberos integrate security
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,6 +39,9 @@ namespace rockzine_admin_api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors(
+                    options => options.WithOrigins("*").AllowAnyMethod()    //TODO FAVIO only from firefox extension
+                );
             app.UseMvc();
         }
     }
