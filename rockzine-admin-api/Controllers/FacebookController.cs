@@ -39,10 +39,25 @@ namespace rockzine_admin_api.Controllers
                     });
                     break;
                 case "PEOPLE_WHO_FOLLOW_THIS_PAGE":
+
+                    _dbContext.PeopleWhoFollowThisPage.Add(new PeopleWhoFollowThisPage (){
+                        ResponseOffset = model.offset,
+                        ResponseText = model.rawFacebookResponse
+                    });                
                     break;
                 case "PAGES_THAT_LIKE_THIS_PAGE":
+                
+                    _dbContext.PagesThatLikeThisPage.Add(new PagesThatLikeThisPage (){
+                        ResponseOffset = model.offset,
+                        ResponseText = model.rawFacebookResponse
+                    });
                     break;
                 case "PEOPLE_BANNED_FROM_PAGE":
+                
+                    _dbContext.PeopleBannedFromPage.Add(new PeopleBannedFromPage (){
+                        ResponseOffset = model.offset,
+                        ResponseText = model.rawFacebookResponse
+                    });
                     break;                                        
             }
 
